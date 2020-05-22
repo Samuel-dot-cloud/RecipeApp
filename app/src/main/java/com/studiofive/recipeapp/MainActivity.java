@@ -40,11 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFindRecipesButton.setOnClickListener(this);
 
         //Setting a video background
-        String path ="android.resource://com.studiofive.recipeapp/"+R.raw.background;
+        String path ="android.resource://com.studiofive.recipeapp/"+ R.raw.background;
         Uri u = Uri.parse(path);
         mVideoBackground.setVideoURI(u);
         mVideoBackground.start();
 
+        //Setting a media player for the video
         mVideoBackground.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v == mFindRecipesButton) {//switching to recipes when button pressed
+        if (v == mFindRecipesButton) {        //switching to recipes when button is pressed
             Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
             startActivity(intent);
         }

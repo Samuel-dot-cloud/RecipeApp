@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 //implementing a changing view interface
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     //binding all views in main activity
 //    @BindView(R.id.findRecipesButton)
     Button mFindRecipesButton;
@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.nav_home:
                         return true;
                     case R.id.recipes:
-                        startActivity(new Intent(getApplicationContext()
-                                ,RecipeActivity.class));
                         String recipe = mSearchBar.getText().toString();
                         getIntent().putExtra("recipe", recipe);
+                        startActivity(new Intent(getApplicationContext()
+                                ,RecipeActivity.class));
                         overridePendingTransition(0,0);
                         return true;
 
@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == mFindRecipesButton) {        //switching to recipes when button is pressed
-            Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
-            startActivity(intent);
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (v == mFindRecipesButton) {        //switching to recipes when button is pressed
+//            Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+//            startActivity(intent);
+//        }
+//    }
 
     //Override functions to enable optimum video play
     @Override

@@ -58,6 +58,8 @@ public class RecipeActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
+        String recipe = intent.getStringExtra("recipe");
+        mDisplaySearch.setText("Recipes found associated with search item:" + recipe);
     }
 
 //    @Override

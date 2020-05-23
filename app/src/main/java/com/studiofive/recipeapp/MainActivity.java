@@ -1,16 +1,20 @@
 package com.studiofive.recipeapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText mSearchBar;
     @BindView(R.id.videoBackground)
     VideoView mVideoBackground;
+    @BindView(R.id.menuBar)
+    BottomNavigationView mMenuBar;
 
 
     @Override
@@ -37,7 +43,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         //setting a click listener
-        mFindRecipesButton.setOnClickListener(this);
+//        mFindRecipesButton.setOnClickListener(this);
+
+        //setting home selected with nav bar
+        mMenuBar.setSelectedItemId(R.id.nav_home);
+
+        //Perform ItemSelectedListener
+        mMenuBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (mMenuBar.getSelectedItemId()){
+                    case R.id.nav_home:
+                        return true;
+                    case R.id.recipes:
+                        startActivity(new Intent(getApplicationContext()
+                                ,RecipeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.about:
+                        startActivity(new Intent(getApplicationContext()
+                                ,AboutActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         //Setting a video background
         String path ="android.resource://com.studiofive.recipeapp/"+ R.raw.cookie;

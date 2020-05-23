@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFindRecipesButton.setOnClickListener(this);
 
         //Setting a video background
-        String path ="android.resource://com.studiofive.recipeapp/"+ R.raw.background;
+        String path ="android.resource://com.studiofive.recipeapp/"+ R.raw.cookie;
         Uri u = Uri.parse(path);
         mVideoBackground.setVideoURI(u);
         mVideoBackground.start();

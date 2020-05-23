@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 //implementing a changing view interface
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //binding all views in main activity
-    @BindView(R.id.findRecipesButton)
+//    @BindView(R.id.findRecipesButton)
     Button mFindRecipesButton;
     @BindView(R.id.appTitle)
     TextView mAppTitle;

@@ -58,8 +58,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.recipes:
                         startActivity(new Intent(getApplicationContext()
                                 ,RecipeActivity.class));
+                        String recipe = mSearchBar.getText().toString();
+                        getIntent().putExtra("recipe", recipe);
                         overridePendingTransition(0,0);
                         return true;
+
                     case R.id.about:
                         startActivity(new Intent(getApplicationContext()
                                 ,AboutActivity.class));

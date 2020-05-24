@@ -7,11 +7,6 @@ My name is Samuel and i am currently a learning software programmer at Moringa S
 
 ## DESCRIPTION OF PROJECT.
 The project is a Java Android-platform based recipe application whereby one is able to look up recipes to various classes of food. :medal_military::medal_military::trophy:
- 
-                                 Solarized dark             |  Solarized Ocean
-                                 :-------------------------:|:-------------------------:
-                        ![Home section](./pics/shoot3.jpg)  |  ![Recipe section](./pics/shoot2.jpg?raw=true)
-
 
 ### PROJECT SETUP INSTRUCTIONS.
 1. Fork this repository.

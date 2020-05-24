@@ -7,9 +7,9 @@ My name is Samuel and i am currently a learning software programmer at Moringa S
 
 ## DESCRIPTION OF PROJECT.
 The project is a Java Android-platform based recipe application whereby one is able to look up recipes to various classes of food. :medal_military::medal_military::trophy:
-![Home section](https://raw.github.com/Samuel-dot-cloud/RecipeApp/wone/drawable/shoot3.jpg?raw=true)
-![Recipe section](drawable/shoot2.jpg?raw=true)
-![About section](drawable/shoot1.jpg?raw=true)
+![Home section](./pics/shoot3.jpg)
+![Recipe section](./pics/shoot2.jpg?raw=true)
+![About section](./pics/shoot1.jpg)
 ### PROJECT SETUP INSTRUCTIONS.
 1. Fork this repository.
 2. Clone this repository onto your local machine through use of the command `git clone <Forked-repository-link.>`. 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Recipe App</string>
+    <string name="aboutText">This is an application whose sole purpose is to bring the most reliable recipes from the comfort of your homes and kitchen.Feel free to
+    scroll through our large repository of recipes and ultimately find the one that suits you best.</string>
 </resources>

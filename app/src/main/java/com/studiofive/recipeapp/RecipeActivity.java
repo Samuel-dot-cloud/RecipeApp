@@ -23,11 +23,14 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 //    @BindView(R.id.menuBar)
 //    BottomNavigationView mMenuBar;
 
+    private String[] foods = new String[] {"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "BCuban", "Bar Food", "Sports Bar", "Breakfast", "Mexican" };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
+
 
 //        mFindAboutButton.setOnClickListener(this);
 
@@ -56,6 +59,9 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 //                return false;
 //            }
 //        });
+
+        //setting a click listener
+        mFindAboutButton.setOnClickListener(this);
 
         Intent intent = getIntent();
         String recipe = intent.getStringExtra("recipe");

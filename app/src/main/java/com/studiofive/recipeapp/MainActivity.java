@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -56,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    case R.id.nav_home:
 //                        return true;
 //                    case R.id.recipes:
-//                        String recipe = mSearchBar.getText().toString();
-//                        getIntent().putExtra("recipe", recipe);
+//
 //                        startActivity(new Intent(getApplicationContext()
 //                                ,RecipeActivity.class));
 //                        overridePendingTransition(0,0);
@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
 
+
+
         //Setting a video background
         String path ="android.resource://com.studiofive.recipeapp/"+ R.raw.cookie;
         Uri u = Uri.parse(path);
@@ -87,12 +89,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        //setting a click listener
+        mFindRecipesButton.setOnClickListener(this);
+
     }
+
+
 
     @Override
     public void onClick(View v) {
-        if (v == mFindRecipesButton) {        //switching to recipes when button is pressed
+        if (v == mFindRecipesButton) {//switching to recipes when button is pressed
+            //adding a toast to show submission was successful
+            Toast.makeText(MainActivity.this, "Submission successful!!!", Toast.LENGTH_SHORT).show();
+            String recipe = mSearchBar.getText().toString();
             Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+            intent.putExtra("recipe", recipe);
             startActivity(intent);
         }
     }

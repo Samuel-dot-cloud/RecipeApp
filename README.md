@@ -7,7 +7,7 @@ My name is Samuel and i am currently a learning software programmer at Moringa S
 
 ## DESCRIPTION OF PROJECT.
 The project is a Java Android-platform based recipe application whereby one is able to look up recipes to various classes of food. :medal_military::medal_military::trophy:
-![Home section](drawable/shoot3.jpg?raw=true)
+![Home section](https://raw.github.com/Samuel-dot-cloud/RecipeApp/wone/drawable/shoot3.jpg?raw=true)
 ![Recipe section](drawable/shoot2.jpg?raw=true)
 ![About section](drawable/shoot1.jpg?raw=true)
 ### PROJECT SETUP INSTRUCTIONS.

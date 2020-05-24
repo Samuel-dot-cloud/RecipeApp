@@ -20,9 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 //implementing a changing view interface
-public class MainActivity extends AppCompatActivity {
-    //binding all views in main activity
-//    @BindView(R.id.findRecipesButton)
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+   // binding all views in main activity
+    @BindView(R.id.findRecipesButton)
     Button mFindRecipesButton;
     @BindView(R.id.appTitle)
     TextView mAppTitle;
@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     EditText mSearchBar;
     @BindView(R.id.videoBackground)
     VideoView mVideoBackground;
-    @BindView(R.id.menuBar)
-    BottomNavigationView mMenuBar;
+//    @BindView(R.id.menuBar)
+//    BottomNavigationView mMenuBar;
 
 
     @Override
@@ -45,33 +45,33 @@ public class MainActivity extends AppCompatActivity {
         //setting a click listener
 //        mFindRecipesButton.setOnClickListener(this);
 
-        //setting home selected with nav bar
-        mMenuBar.setSelectedItemId(R.id.nav_home);
-
-        //Perform ItemSelectedListener
-        mMenuBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (mMenuBar.getSelectedItemId()){
-                    case R.id.nav_home:
-                        return true;
-                    case R.id.recipes:
-                        String recipe = mSearchBar.getText().toString();
-                        getIntent().putExtra("recipe", recipe);
-                        startActivity(new Intent(getApplicationContext()
-                                ,RecipeActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.about:
-                        startActivity(new Intent(getApplicationContext()
-                                ,AboutActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
+//        //setting home selected with nav bar
+//        mMenuBar.setSelectedItemId(R.id.nav_home);
+//
+//        //Perform ItemSelectedListener
+//        mMenuBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (mMenuBar.getSelectedItemId()){
+//                    case R.id.nav_home:
+//                        return true;
+//                    case R.id.recipes:
+//                        String recipe = mSearchBar.getText().toString();
+//                        getIntent().putExtra("recipe", recipe);
+//                        startActivity(new Intent(getApplicationContext()
+//                                ,RecipeActivity.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//
+//                    case R.id.about:
+//                        startActivity(new Intent(getApplicationContext()
+//                                ,AboutActivity.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
 
         //Setting a video background
         String path ="android.resource://com.studiofive.recipeapp/"+ R.raw.cookie;
@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v == mFindRecipesButton) {        //switching to recipes when button is pressed
-//            Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
-//            startActivity(intent);
-//        }
-//    }
+    @Override
+    public void onClick(View v) {
+        if (v == mFindRecipesButton) {        //switching to recipes when button is pressed
+            Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+            startActivity(intent);
+        }
+    }
 
     //Override functions to enable optimum video play
     @Override

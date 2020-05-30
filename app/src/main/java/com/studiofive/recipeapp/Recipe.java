@@ -10,11 +10,11 @@ public class Recipe {
     private String mUrl;
     private String mShareAs;
     private ArrayList<String> mIngredientLines = new ArrayList<>();
-//    private ArrayList<String> mIngredients = new ArrayList<>();
+//    private ArrayList<String> mHealthLabels = new ArrayList<>();
     private double mCalories;
     private double mTotalTime;
 
-    public Recipe(String label, String source, String uri, String image, String url, String shareAs, ArrayList<String> ingredientLines,  double calories, double totalTime){
+    public Recipe(String label, String source, String uri, String image, String url, String shareAs, ArrayList<String> ingredientLines, double calories, double totalTime){
         this.mLabel = label;
         this.mSource = source;
         this.mUri = uri;
@@ -24,6 +24,9 @@ public class Recipe {
         this.mIngredientLines = ingredientLines;
         this.mCalories = calories;
         this.mTotalTime = totalTime;
+    }
+
+    public Recipe(String label, String source, String uri, String image, String url, String shareAs, double calories, double totalTime, ArrayList<String> ingredientLines) {
     }
 
     public String getmLabel(){
@@ -53,6 +56,10 @@ public class Recipe {
     public ArrayList<String> getmIngredientLines(){
         return mIngredientLines;
     }
+
+//    public ArrayList<String> getmHealthLabels() {
+//        return mHealthLabels;
+//    }
 
     public double getmCalories(){
         return mCalories;

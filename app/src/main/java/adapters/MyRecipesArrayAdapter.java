@@ -1,4 +1,4 @@
-package com.studiofive.recipeapp;
+package adapters;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

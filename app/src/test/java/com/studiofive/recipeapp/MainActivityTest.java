@@ -12,6 +12,9 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
+import ui.MainActivity;
+import ui.RecipeActivity;
+
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)

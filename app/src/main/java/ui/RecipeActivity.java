@@ -1,12 +1,10 @@
-package com.studiofive.recipeapp;
+package ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,7 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.studiofive.recipeapp.EdamamService;
+import adapters.MyRecipesArrayAdapter;
+import com.studiofive.recipeapp.R;
 
 import java.io.IOException;
 

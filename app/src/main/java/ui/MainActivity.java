@@ -1,13 +1,11 @@
-package com.studiofive.recipeapp;
+package ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.studiofive.recipeapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -7,8 +7,9 @@ import retrofit2.http.Query;
 public interface EdamamApi {
 
     //getting searched recipe
-    @GET("/search")
+    @GET("")
     Call<EdamamRecipesSearchResponse> getQ(
-            @Query("q") String query
+            @Query("q") String recipe
+
     );
 }

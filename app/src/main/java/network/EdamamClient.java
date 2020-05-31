@@ -25,7 +25,6 @@ public class EdamamClient {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
                             Request newRequest = chain.request().newBuilder()
-                                    .addHeader("Accept-Encoding: gzip", EDAMAM_APP_KEY)
                                     .build();
                             return chain.proceed(newRequest);
                         }

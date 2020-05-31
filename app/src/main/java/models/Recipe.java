@@ -26,7 +26,10 @@ public class Recipe {
         this.mTotalTime = totalTime;
     }
 
-    public Recipe(String label, String source, String uri, String image, String url, String shareAs, double calories, double totalTime, ArrayList<String> ingredientLines) {
+    public Recipe() {
+    }
+
+    public Recipe(String name, String source, String uri, String image, String url, String shareAs, double calories, double totalTime, ArrayList<String> ingredientLines) {
     }
 
     public String getLabel(){

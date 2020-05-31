@@ -10,10 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import models.Recipe;
+import network.EdamamApi;
+import network.EdamamClient;
+import network.EdamamRecipesSearchResponse;
 import network.EdamamService;
 import adapters.MyRecipesArrayAdapter;
 import com.studiofive.recipeapp.R;
@@ -37,6 +41,11 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 //    BottomNavigationView mMenuBar;
     @BindView(R.id.listView)
     ListView mListView;
+    @BindView(R.id.errorTextView)
+    TextView mErrorTextView;
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
+
     private ArrayList<Recipe> recipes = new ArrayList<>();
 
 //    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
@@ -99,6 +108,21 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         mDisplaySearch.setText("Recipes found associated with search item:" + recipe);
 
         getRecipes(recipe);
+
+        EdamamApi client = EdamamClient.getClient();
+        retrofit2.Call<EdamamRecipesSearchResponse> call = client.getQ(recipe);
+
+        call.enqueue(new retrofit2.Callback<EdamamRecipesSearchResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<EdamamRecipesSearchResponse> call, retrofit2.Response<EdamamRecipesSearchResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<EdamamRecipesSearchResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -109,7 +133,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void getRecipes(String recipe) {
+    private void getRecipes(final String recipe) {
         final EdamamService edamamService = new EdamamService();
         edamamService.findRecipes(recipe, new Callback() {
 
@@ -139,10 +163,39 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                         }
                         ArrayAdapter adapter = new ArrayAdapter(RecipeActivity.this, android.R.layout.simple_list_item_1, recipeNames);
                         mListView.setAdapter(adapter);
+                        for (Recipe recipe : recipes) {
+                            Log.d(TAG, "Label: " + recipe.getLabel());
+                            Log.d(TAG, "source: " + recipe.getSource());
+                            Log.d(TAG, "uri: " + recipe.getUri());
+                            Log.d(TAG, "image: " + recipe.getImage());
+                            Log.d(TAG, "url: " + recipe.getUrl());
+                            Log.d(TAG, "shareas: " +  recipe.getShareAs());
+                            Log.d(TAG, "ingredient: " + recipe.getIngredientLines().toString());
+                            Log.d(TAG, "calories: " + Double.toString(recipe.getCalories()));
+                            Log.d(TAG, "time: " + Double.toString(recipe.getTotalTime()));
+                        }
                     }
                 });
 
             }
         });
+    }
+    private void showFailureMessage() {
+        mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");
+        mErrorTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void showUnsuccessfulMessage() {
+        mErrorTextView.setText("Something went wrong. Please try again later");
+        mErrorTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void showRestaurants() {
+        mListView.setVisibility(View.VISIBLE);
+        mDisplaySearch.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
     }
 }

@@ -26,19 +26,17 @@ public class EdamamService {
                 .build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.EDAMAM_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter("q", Constants.SEARCH);
+        urlBuilder.addQueryParameter(Constants.SEARCH, recipe);
         urlBuilder.addQueryParameter("app_id", Constants.EDAMAM_APP_ID);
         urlBuilder.addQueryParameter("app_key", Constants.EDAMAM_APP_KEY);
-//        urlBuilder.addQueryParameter("from", Constants.FROM);
-//        urlBuilder.addQueryParameter("to", Constants.TO);
-//        urlBuilder.addQueryParameter("calories", Constants.CALORIES);
-//        urlBuilder.addQueryParameter("health", Constants.HEALTH);
+        urlBuilder.addQueryParameter("from", Constants.FROM);
+        urlBuilder.addQueryParameter("to", Constants.TO);
+        urlBuilder.addQueryParameter("calories", Constants.CALORIES);
+        urlBuilder.addQueryParameter("health", Constants.HEALTH);
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()
                 .url(url)
-                .header("app_id", Constants.EDAMAM_APP_ID)
-                .header("app_key", Constants.EDAMAM_APP_KEY)
                 .build();
 
         Call call = client.newCall(request);

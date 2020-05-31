@@ -7,16 +7,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import models.Recipe;
 import network.EdamamService;
 import adapters.MyRecipesArrayAdapter;
 import com.studiofive.recipeapp.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,8 +37,9 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 //    BottomNavigationView mMenuBar;
     @BindView(R.id.listView)
     ListView mListView;
+    private ArrayList<Recipe> recipes = new ArrayList<>();
 
-    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
+//    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
     private String[] base = new String[]{"Flour", "Plant", "Meat", "Meat", "Drink", "Plant", "Plant and meat", "Meat", "Flour", "Flour,plant and meat", "Meat", "Flour, plant and meat", "Egg", "Meat", "Flour", "Plant"};
 
 
@@ -46,18 +50,18 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         ButterKnife.bind(this);
 
 
-        MyRecipesArrayAdapter adapter = new MyRecipesArrayAdapter(this, android.R.layout.simple_list_item_1, foods, base);
-        mListView.setAdapter(adapter);
-
-        //Setting a toaster to display recipe and base
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String restaurant = ((TextView) view).getText().toString();
-                Toast.makeText(RecipeActivity.this, restaurant, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        MyRecipesArrayAdapter adapter = new MyRecipesArrayAdapter(this, android.R.layout.simple_list_item_1, foods, base);
+//        mListView.setAdapter(adapter);
+//
+//        //Setting a toaster to display recipe and base
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                String restaurant = ((TextView) view).getText().toString();
+//                Toast.makeText(RecipeActivity.this, restaurant, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 //        mFindAboutButton.setOnClickListener(this);
 
@@ -117,13 +121,26 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                recipes = edamamService.processResults(response);
 
-                try {
-                    String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    String jsonData = response.body().string();
+//                    Log.v(TAG, jsonData);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
+                RecipeActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String[] recipeNames = new String[recipes.size()];
+                        for (int i = 0; i < recipeNames.length; i++){
+                            recipeNames[i] = recipes.get(i).getLabel();
+                        }
+                        ArrayAdapter adapter = new ArrayAdapter(RecipeActivity.this, android.R.layout.simple_list_item_1, recipeNames);
+                        mListView.setAdapter(adapter);
+                    }
+                });
 
             }
         });

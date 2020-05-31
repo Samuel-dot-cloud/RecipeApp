@@ -50,22 +50,22 @@ public class EdamamService {
         try {
             String jsonData = response.body().string();
             JSONObject edamamJSON = new JSONObject(jsonData);
-            JSONArray recipesJSON = edamamJSON.getJSONArray("recipe");
+            JSONArray recipesJSON = edamamJSON.getJSONArray("hits");
 
             if (response.isSuccessful()){
                 for (int i = 0; i < recipesJSON.length(); i++) {
                     JSONObject outputJSON = recipesJSON.getJSONObject(i);
-                    String name = outputJSON.getString("label");
-                    String source = outputJSON.getString("source");
-                    String uri = outputJSON.getString("uri");
-                    String image = outputJSON.getString("image");
-                    String url = outputJSON.getString("url");
-                    String shareAs = outputJSON.getString("shareAs");
-                    double calories = outputJSON.getDouble("calories");
-                    double totalTime = outputJSON.getDouble("totalTime");
+                    String name = outputJSON.getJSONObject("recipe").getString("label");
+                    String source = outputJSON.getJSONObject("recipe").getString("source");
+                    String uri = outputJSON.getJSONObject("recipe").getString("uri");
+                    String image = outputJSON.getJSONObject("recipe").getString("image");
+                    String url = outputJSON.getJSONObject("recipe").getString("url");
+                    String shareAs = outputJSON.getJSONObject("recipe").getString("shareAs");
+                    double calories = outputJSON.getJSONObject("recipe").getDouble("calories");
+                    double totalTime = outputJSON.getJSONObject("recipe").getDouble("totalTime");
 
                     ArrayList<String> ingredientLines = new ArrayList<>();
-                    JSONArray ingredientsJSON = outputJSON.getJSONArray("ingredients");
+                    JSONArray ingredientsJSON = outputJSON.getJSONObject("recipe").getJSONArray("ingredients");
                     for (int y = 0; y < ingredientsJSON.length(); y++){
                         ingredientLines.add(ingredientsJSON.getJSONObject(y).getString("text"));
                     }

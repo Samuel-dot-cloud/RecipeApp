@@ -29,43 +29,43 @@ public class Recipe {
     public Recipe(String label, String source, String uri, String image, String url, String shareAs, double calories, double totalTime, ArrayList<String> ingredientLines) {
     }
 
-    public String getmLabel(){
+    public String getLabel(){
         return mLabel;
     }
 
-    public String getmSource(){
+    public String getSource(){
         return mSource;
     }
 
-    public String getmUri(){
+    public String getUri(){
         return mUri;
     }
 
-    public String getmImage(){
+    public String getImage(){
         return mImage;
     }
 
-    public String getmUrl(){
+    public String getUrl(){
         return mUrl;
     }
 
-    public String getmShareAs(){
+    public String getShareAs(){
         return mShareAs;
     }
 
-    public ArrayList<String> getmIngredientLines(){
+    public ArrayList<String> getIngredientLines(){
         return mIngredientLines;
     }
 
-//    public ArrayList<String> getmHealthLabels() {
+//    public ArrayList<String> getHealthLabels() {
 //        return mHealthLabels;
 //    }
 
-    public double getmCalories(){
+    public double getCalories(){
         return mCalories;
     }
 
-    public double getmTotalTime(){
+    public double getTotalTime(){
         return mTotalTime;
     }
 }

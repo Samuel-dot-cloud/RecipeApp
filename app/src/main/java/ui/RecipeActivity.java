@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.studiofive.recipeapp.EdamamService;
+import network.EdamamService;
 import adapters.MyRecipesArrayAdapter;
 import com.studiofive.recipeapp.R;
 

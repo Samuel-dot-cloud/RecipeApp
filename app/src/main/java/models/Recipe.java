@@ -1,4 +1,4 @@
-package com.studiofive.recipeapp;
+package models;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.studiofive.recipeapp;
+package network;
 
 import java.io.IOException;
 

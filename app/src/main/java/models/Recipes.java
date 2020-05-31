@@ -1,5 +1,5 @@
 
-package com.studiofive.recipeapp;
+package models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

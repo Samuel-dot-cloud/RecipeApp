@@ -1,8 +1,10 @@
 
-package com.studiofive.recipeapp;
+package models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import models.Recipe;
 
 public class Hit {
 

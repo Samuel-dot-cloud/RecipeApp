@@ -1,9 +1,11 @@
 
-package com.studiofive.recipeapp;
+package models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import models.Sub;
 
 public class Digest {
 

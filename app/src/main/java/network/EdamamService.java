@@ -1,4 +1,6 @@
-package com.studiofive.recipeapp;
+package network;
+
+import com.studiofive.recipeapp.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -7,6 +9,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import models.Recipe;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -23,17 +26,19 @@ public class EdamamService {
                 .build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.EDAMAM_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter("sushi", Constants.SEARCH);
+        urlBuilder.addQueryParameter("q", Constants.SEARCH);
         urlBuilder.addQueryParameter("app_id", Constants.EDAMAM_APP_ID);
         urlBuilder.addQueryParameter("app_key", Constants.EDAMAM_APP_KEY);
-        urlBuilder.addQueryParameter("from", Constants.FROM);
-        urlBuilder.addQueryParameter("to", Constants.TO);
-        urlBuilder.addQueryParameter("calories", Constants.CALORIES);
-        urlBuilder.addQueryParameter("health", Constants.HEALTH);
+//        urlBuilder.addQueryParameter("from", Constants.FROM);
+//        urlBuilder.addQueryParameter("to", Constants.TO);
+//        urlBuilder.addQueryParameter("calories", Constants.CALORIES);
+//        urlBuilder.addQueryParameter("health", Constants.HEALTH);
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()
                 .url(url)
+                .header("app_id", Constants.EDAMAM_APP_ID)
+                .header("app_key", Constants.EDAMAM_APP_KEY)
                 .build();
 
         Call call = client.newCall(request);

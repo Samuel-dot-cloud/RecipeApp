@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.studiofive.recipeapp.R;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     private List<Recipe> mRecipes;
     private Context mContext;
 
-    public RecipeListAdapter(Context context, List<Recipe> recipes){
+    public RecipeListAdapter(Context context, String recipes){
         mContext = context;
         mRecipes = recipes;
     }
@@ -66,6 +67,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             mCalorieTextView.setText("Total calories:" + recipe.getCalories() + "kcal");
             mPreparationTextView.setText("Preparation time:" + recipe.getTotalTime() + "hours");
             mRecipeTextView.setText(recipe.getLabel());
+            Picasso.get().load(recipe.getImage()).into(mRecipeImageView);
         }
 
     }

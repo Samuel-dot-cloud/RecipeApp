@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.studiofive.recipeapp.R;
 
 import butterknife.BindView;
@@ -29,8 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText mSearchBar;
     @BindView(R.id.videoBackground)
     VideoView mVideoBackground;
-//    @BindView(R.id.menuBar)
-//    BottomNavigationView mMenuBar;
+
+    private AwesomeValidation awesomeValidation;
+
+
 
 
     @Override
@@ -90,15 +95,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setting a click listener
         mFindRecipesButton.setOnClickListener(this);
 
+        //initialize validation style
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        //add validation for search item
+        awesomeValidation.addValidation(this, R.id.search_bar, RegexTemplate.NOT_EMPTY, R.string.invalid_search);
+
     }
 
 
 
     @Override
     public void onClick(View v) {
-        if (v == mFindRecipesButton) {//switching to recipes when button is pressed
-            //adding a toast to show submission was successful
+        //check validation
+        if (awesomeValidation.validate()){
+            //on success
             Toast.makeText(MainActivity.this, "Submission successful!!!", Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(MainActivity.this, "Invalid input!!!", Toast.LENGTH_SHORT).show();
+        }
+        if (v == mFindRecipesButton) {//switching to recipes when button is pressed
             String recipe = mSearchBar.getText().toString();
             Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
             intent.putExtra("recipe", recipe);

@@ -1,6 +1,8 @@
 package ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import adapters.RecipeListAdapter;
 import models.Recipe;
 import network.EdamamApi;
 import network.EdamamClient;
@@ -24,6 +27,7 @@ import com.studiofive.recipeapp.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +49,11 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     TextView mErrorTextView;
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+    private RecipeListAdapter mAdapter;
 
-    private ArrayList<Recipe> recipes = new ArrayList<>();
+    public List<Recipe> recipes;
 
 //    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
     private String[] base = new String[]{"Flour", "Plant", "Meat", "Meat", "Drink", "Plant", "Plant and meat", "Meat", "Flour", "Flour,plant and meat", "Meat", "Flour, plant and meat", "Egg", "Meat", "Flour", "Plant"};
@@ -115,12 +122,27 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         call.enqueue(new retrofit2.Callback<EdamamRecipesSearchResponse>() {
             @Override
             public void onResponse(retrofit2.Call<EdamamRecipesSearchResponse> call, retrofit2.Response<EdamamRecipesSearchResponse> response) {
+                hideProgressBar();
 
+                if (response.isSuccessful()) {
+                    recipes = response.body().getQ();
+                    mAdapter = new RecipeListAdapter(RecipeActivity.this, recipes);
+                    mRecyclerView.setAdapter(mAdapter);
+                    RecyclerView.LayoutManager layoutManager =
+                            new LinearLayoutManager(RecipeActivity.this);
+                    mRecyclerView.setLayoutManager(layoutManager);
+                    mRecyclerView.setHasFixedSize(true);
+
+                    showRestaurants();
+                } else {
+                    showUnsuccessfulMessage();
+                }
             }
 
             @Override
             public void onFailure(retrofit2.Call<EdamamRecipesSearchResponse> call, Throwable t) {
-
+                hideProgressBar();
+                showFailureMessage();
             }
         });
     }

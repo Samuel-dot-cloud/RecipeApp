@@ -12,8 +12,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
-import ui.MainActivity;
-import ui.RecipeActivity;
+import com.studiofive.recipeapp.ui.MainActivity;
+import com.studiofive.recipeapp.ui.RecipeActivity;
 
 import static org.junit.Assert.assertTrue;
 

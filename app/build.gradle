@@ -47,4 +47,6 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
     implementation 'com.basgeekball:awesome-validation:4.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+
 }

@@ -1,20 +1,17 @@
 package ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import adapters.RecipeListAdapter;
 import models.Recipe;
@@ -22,11 +19,10 @@ import network.EdamamApi;
 import network.EdamamClient;
 import network.EdamamRecipesSearchResponse;
 import network.EdamamService;
-import adapters.MyRecipesArrayAdapter;
+
 import com.studiofive.recipeapp.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,8 +31,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class RecipeActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String TAG = RecipeActivity.class.getSimpleName();
+public class RecipeListActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String TAG = RecipeListActivity.class.getSimpleName();
     @BindView(R.id.findAboutButton)
     Button mFindAboutButton;
     @BindView(R.id.displaySearch)
@@ -51,7 +47,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     ProgressBar mProgressBar;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-    private RecipeListAdapter mAdapter;
+//    private RecipeListAdapter mAdapter;
 
     public List<Recipe> recipes;
 
@@ -119,38 +115,38 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         EdamamApi client = EdamamClient.getClient();
         retrofit2.Call<EdamamRecipesSearchResponse> call = client.getQ(recipe);
 
-        call.enqueue(new retrofit2.Callback<EdamamRecipesSearchResponse>() {
-            @Override
-            public void onResponse(retrofit2.Call<EdamamRecipesSearchResponse> call, retrofit2.Response<EdamamRecipesSearchResponse> response) {
-                hideProgressBar();
-
-                if (response.isSuccessful()) {
-                    recipes = response.body().getQ();
-                    mAdapter = new RecipeListAdapter(RecipeActivity.this, recipes);
-                    mRecyclerView.setAdapter(mAdapter);
-                    RecyclerView.LayoutManager layoutManager =
-                            new LinearLayoutManager(RecipeActivity.this);
-                    mRecyclerView.setLayoutManager(layoutManager);
-                    mRecyclerView.setHasFixedSize(true);
-
-                    showRestaurants();
-                } else {
-                    showUnsuccessfulMessage();
-                }
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<EdamamRecipesSearchResponse> call, Throwable t) {
-                hideProgressBar();
-                showFailureMessage();
-            }
-        });
+//        call.enqueue(new retrofit2.Callback<EdamamRecipesSearchResponse>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<EdamamRecipesSearchResponse> call, retrofit2.Response<EdamamRecipesSearchResponse> response) {
+//                hideProgressBar();
+//
+//                if (response.isSuccessful()) {
+//                    recipes = response.body().getQ();
+//                    mAdapter = new RecipeListAdapter(RecipeActivity.this, recipes);
+//                    mRecyclerView.setAdapter(mAdapter);
+//                    RecyclerView.LayoutManager layoutManager =
+//                            new LinearLayoutManager(RecipeActivity.this);
+//                    mRecyclerView.setLayoutManager(layoutManager);
+//                    mRecyclerView.setHasFixedSize(true);
+//
+//                    showRestaurants();
+//                } else {
+//                    showUnsuccessfulMessage();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<EdamamRecipesSearchResponse> call, Throwable t) {
+//                hideProgressBar();
+//                showFailureMessage();
+//            }
+//        });
     }
 
     @Override
     public void onClick(View v) {
         if (v == mFindAboutButton) {
-            Intent intent = new Intent(RecipeActivity.this, AboutActivity.class);
+            Intent intent = new Intent(RecipeListActivity.this, AboutActivity.class);
             startActivity(intent);
         }
     }
@@ -176,14 +172,14 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 //                    e.printStackTrace();
 //                }
 
-                RecipeActivity.this.runOnUiThread(new Runnable() {
+                RecipeListActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         String[] recipeNames = new String[recipes.size()];
                         for (int i = 0; i < recipeNames.length; i++){
                             recipeNames[i] = recipes.get(i).getLabel();
                         }
-                        ArrayAdapter adapter = new ArrayAdapter(RecipeActivity.this, android.R.layout.simple_list_item_1, recipeNames);
+                        ArrayAdapter adapter = new ArrayAdapter(RecipeListActivity.this, android.R.layout.simple_list_item_1, recipeNames);
                         mListView.setAdapter(adapter);
                         for (Recipe recipe : recipes) {
                             Log.d(TAG, "Label: " + recipe.getLabel());

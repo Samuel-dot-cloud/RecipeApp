@@ -1,10 +1,10 @@
 package models;
 
-import org.parceler.Parcel;
+//import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
-@Parcel
+//@Parcel
 public class Recipe {
     private String mLabel;
     private String mSource;

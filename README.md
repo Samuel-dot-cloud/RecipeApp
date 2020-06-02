@@ -6,7 +6,8 @@ The project is titled 'recipe app'. The project basically functions as the title
 My name is Samuel and i am currently a learning software programmer at Moringa School.:man_technologist::man_technologist:
 
 ## DESCRIPTION OF PROJECT.
-The project is a Java Android-platform based recipe application whereby one is able to look up recipes to various classes of food. :medal_military::medal_military::trophy:
+The project is a Java Android-platform based recipe application whereby one is able to look up recipes to various classes of food.
+ One is able to type in a food search item, and once the search item is validated, the person is directed to a another page where a list of found recipes is displayed, courtesy of Edamam API and associated contributors.:medal_military::medal_military::trophy:
 
 ### PROJECT SETUP INSTRUCTIONS.
 1. Fork this repository.
@@ -15,16 +16,23 @@ The project is a Java Android-platform based recipe application whereby one is a
 4. Navigate the the appropriate directory by use of cd command `cd<root-folder>`.
 5. In order to make any additional changes to the project, it is highly adviced that you install Android Studio, the official IDE for Android.(Integrated Development Environment).
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-### TECHNOLOGIES USED.
-- Java.
-- Gradle.
-- JUnit.
-- [Android Studio](https://developer.android.com/studio).
+## TECHNOLOGIES USED.
+#### Main Requirements::signal_strength::high_brightness:
+- Java- The main programming language used.
+- Gradle - The main build automation tool used.
+- JUnit - The main testing library used.
+- [Android Studio](https://developer.android.com/studio) - The official library for creation of android apps.
+#### Libraries used::card_index_dividers:
 - [Roboelectric](http://robolectric.org/) for unit testing.
 - [Espresso](https://developer.android.com/training/testing/espresso) for instrumentation testing.
+- [Retrofit](https://square.github.io/retrofit/)- A type-safe HTTP client for Android and Java.
+- [Picasso](https://square.github.io/picasso/) - A pwerful image downloading and caching library for Android.
+- [Parceler](http://parceler.org/) - A serialization and deserialization library for Android.
+- [AwesomeValidation](https://github.com/thyrlian/AwesomeValidation) - A validation library for Android.
+- [Okhttp-signpost](https://github.com/pakerfeldt/okhttp-signpost) - A signpost extension for signing OkHttp requests.
 
-### KNOWN BUGS.
----------
+### KNOWN BUGS.:warning:
+- A small problem parsing information received from the API.
 
 ### CONTACT INFORMATION.
 For more information, feel free to contact me through the email address: samdot@gmail.com

@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v == mFindRecipesButton) {//switching to recipes when button is pressed
             String recipe = mSearchBar.getText().toString();
-            Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+            Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
             intent.putExtra("recipe", recipe);
             startActivity(intent);
         }

@@ -52,36 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //binding views
         ButterKnife.bind(this);
 
-        //setting a click listener
-//        mFindRecipesButton.setOnClickListener(this);
-
-//        //setting home selected with nav bar
-//        mMenuBar.setSelectedItemId(R.id.nav_home);
-//
-//        //Perform ItemSelectedListener
-//        mMenuBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (mMenuBar.getSelectedItemId()){
-//                    case R.id.nav_home:
-//                        return true;
-//                    case R.id.recipes:
-//
-//                        startActivity(new Intent(getApplicationContext()
-//                                ,RecipeActivity.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//
-//                    case R.id.about:
-//                        startActivity(new Intent(getApplicationContext()
-//                                ,AboutActivity.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
-
 
 
         //Setting a video background

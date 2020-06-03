@@ -1,6 +1,7 @@
 package com.studiofive.recipeapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.studiofive.recipeapp.adapters.RecipeListAdapter;
 import com.studiofive.recipeapp.models.Hit;
 import com.studiofive.recipeapp.models.Recipe;
+import com.studiofive.recipeapp.models.Recipes;
 import com.studiofive.recipeapp.network.EdamamApi;
 import com.studiofive.recipeapp.network.EdamamClient;
 import com.studiofive.recipeapp.network.EdamamRecipesSearchResponse;
@@ -54,10 +56,12 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     RecyclerView mRecyclerView;
     private RecipeListAdapter mAdapter;
 
-    public ArrayList<Hit> recipes;
+    public List<Hit> hits;
+    public List<Hit> recipes;
+//    public List Recipes;
 
 //    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
-    private String[] base = new String[]{"Flour", "Plant", "Meat", "Meat", "Drink", "Plant", "Plant and meat", "Meat", "Flour", "Flour,plant and meat", "Meat", "Flour, plant and meat", "Egg", "Meat", "Flour", "Plant"};
+//    private String[] base = new String[]{"Flour", "Plant", "Meat", "Meat", "Drink", "Plant", "Plant and meat", "Meat", "Flour", "Flour,plant and meat", "Meat", "Flour, plant and meat", "Egg", "Meat", "Flour", "Plant"};
 
 
     @Override
@@ -88,9 +92,9 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
         String recipe = intent.getStringExtra("recipe");
-        mDisplaySearch.setText("Recipes found associated with search item:" + recipe);
 
-        getRecipes(recipe);
+
+//        getRecipes(recipe);
 
         EdamamService.EdamamInstance().getQ
                 (recipe, "cea6bb57", "3e7b470f74e1d48bb3d122a8bfc500ed", "0", "100", "521-577", "alcohol-free")
@@ -100,8 +104,13 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
                         hideProgressBar();
 //
                 if (response.isSuccessful()) {
-                    recipes = (ArrayList<Hit>) response.body().getHits();
-                    mAdapter = new RecipeListAdapter(RecipeListActivity.this, recipes);
+                    Log.d(TAG, "Response is successful");
+                    if (response.body() !=null) {
+                        recipes = response.body().getHits();
+
+                    }
+
+                    mAdapter = new RecipeListAdapter(RecipeListActivity.this,  recipes);
                     mRecyclerView.setAdapter(mAdapter);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipeListActivity.this);
                     mRecyclerView.setLayoutManager(layoutManager);
@@ -116,6 +125,9 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 
                     @Override
                     public void onFailure(Call<EdamamRecipesSearchResponse> call, Throwable t) {
+                        hideProgressBar();
+                showFailureMessage();
+                Log.e(TAG, "failure", t);
 
                     }
                 });
@@ -154,7 +166,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void getRecipes(final String recipe) {
+//    private void getRecipes(final String recipe) {
 //
 //        final EdamamService edamamService = new EdamamService();
 //        edamamService.findRecipes(recipe, new Callback() {
@@ -185,7 +197,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 //                        }
 //                        ArrayAdapter adapter = new ArrayAdapter(RecipeListActivity.this, android.R.layout.simple_list_item_1, recipeNames);
 //                        mListView.setAdapter(adapter);
-//                        for (Recipe recipe : recipes) {
+//                        for (Hit recipe : recipes) {
 //                            Log.d(TAG, "Label: " + recipe.getLabel());
 //                            Log.d(TAG, "source: " + recipe.getSource());
 //                            Log.d(TAG, "uri: " + recipe.getUri());
@@ -201,7 +213,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 //
 //            }
 //        });
-    }
+//    }
     private void showFailureMessage() {
         mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");
         mErrorTextView.setVisibility(View.VISIBLE);

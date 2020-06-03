@@ -21,12 +21,12 @@ The project is a Java Android-platform based recipe application whereby one is a
 - Java- The main programming language used.
 - Gradle - The main build automation tool used.
 - JUnit - The main testing library used.
-- [Android Studio](https://developer.android.com/studio) - The official library for creation of android apps.
+- [Android Studio](https://developer.android.com/studio) - The official IDE for creation of android apps.
 #### Libraries used::card_index_dividers:
 - [Roboelectric](http://robolectric.org/) for unit testing.
 - [Espresso](https://developer.android.com/training/testing/espresso) for instrumentation testing.
 - [Retrofit](https://square.github.io/retrofit/)- A type-safe HTTP client for Android and Java.
-- [Picasso](https://square.github.io/picasso/) - A pwerful image downloading and caching library for Android.
+- [Picasso](https://square.github.io/picasso/) - A powerful image downloading and caching library for Android.
 - [Parceler](http://parceler.org/) - A serialization and deserialization library for Android.
 - [AwesomeValidation](https://github.com/thyrlian/AwesomeValidation) - A validation library for Android.
 - [Okhttp-signpost](https://github.com/pakerfeldt/okhttp-signpost) - A signpost extension for signing OkHttp requests.

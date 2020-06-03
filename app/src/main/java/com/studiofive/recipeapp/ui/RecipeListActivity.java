@@ -91,7 +91,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         mFindAboutButton.setOnClickListener(this);
 
         Intent intent = getIntent();
-        String recipe = intent.getStringExtra("recipe");
+        final String recipe = intent.getStringExtra("recipe");
 
 
 //        getRecipes(recipe);
@@ -110,7 +110,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 
                     }
 
-                    mAdapter = new RecipeListAdapter(RecipeListActivity.this,  recipes);
+                    mAdapter = new RecipeListAdapter(RecipeListActivity.this, recipes);
                     mRecyclerView.setAdapter(mAdapter);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipeListActivity.this);
                     mRecyclerView.setLayoutManager(layoutManager);

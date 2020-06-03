@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import com.studiofive.recipeapp.R;
 
 import com.studiofive.recipeapp.models.Recipe;
+import com.studiofive.recipeapp.models.Recipes;
 
 import org.parceler.Parcels;
 
@@ -51,7 +52,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     @BindView(R.id.saveRecipeButton)
     Button mSaveRecipeButton;
 
-    private Recipe mRecipe;
+    private Recipes mRecipe;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

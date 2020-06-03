@@ -29,34 +29,28 @@ import com.studiofive.recipeapp.ui.RecipeListActivity;
 import org.parceler.Parcels;
 
 public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
-    private List<Recipes> mRecipes;
-    private ArrayList<Hit> mHit;
+    private List<Hit> mRecipes;
     private Context mContext;
 
-    public RecipeListAdapter(Context context, List<Recipes> recipes, ArrayList<Hit> hit){
+    public RecipeListAdapter(Context context, List<Hit> recipes){
         mContext = context;
         mRecipes = recipes;
-        mHit = hit;
     }
 
 
 
-
-
-    public RecipeListAdapter(RecipeListActivity recipeListActivity, List<Hit> recipes) {
-    }
 
     @NonNull
     @Override
     public RecipeListAdapter.RecipeViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item, parent, false);
-        RecipeViewHolder viewHolder = new RecipeViewHolder(view);
-        return viewHolder;
+
+        return new RecipeListAdapter.RecipeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder( RecipeListAdapter.RecipeViewHolder holder, int position) {
-        holder.bindRecipe(mRecipes.get(position));
+        Picasso.get().load(mRecipes.get(position).getRecipe().getImage());
     }
 
     @Override
@@ -82,12 +76,12 @@ public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.R
             itemView.setOnClickListener((View.OnClickListener) this);
         }
 
-        public void bindRecipe(Recipes recipe){
-            mCalorieTextView.setText("Total calories:" + recipe.getCalories() + "kcal");
-            mPreparationTextView.setText("Preparation time:" + recipe.getTotalTime() + "hours");
-            mRecipeTextView.setText(recipe.getLabel());
-            Picasso.get().load(recipe.getImage()).into(mRecipeImageView);
-        }
+//        public void bindRecipe(Recipe recipe){
+//            mCalorieTextView.setText("Total calories:" + recipe.getCalories() + "kcal");
+//            mPreparationTextView.setText("Preparation time:" + recipe.getTotalTime() + "hours");
+//            mRecipeTextView.setText(recipe.getLabel());
+//            Picasso.get().load(recipe.getImage()).into(mRecipeImageView);
+//        }
 
         @Override
         public void onClick(View v) {
@@ -97,5 +91,6 @@ public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.R
             intent.putExtra("recipe", Parcels.wrap(mRecipes));
             mContext.startActivity(intent);
         }
+
     }
 }

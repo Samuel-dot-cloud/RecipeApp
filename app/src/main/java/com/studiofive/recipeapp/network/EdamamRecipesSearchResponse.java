@@ -1,11 +1,16 @@
 
 package com.studiofive.recipeapp.network;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.studiofive.recipeapp.models.Hit;
+import com.studiofive.recipeapp.models.Recipe;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class EdamamRecipesSearchResponse {
 
     @SerializedName("q")

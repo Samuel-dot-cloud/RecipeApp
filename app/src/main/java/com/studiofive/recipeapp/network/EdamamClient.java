@@ -1,5 +1,7 @@
 package com.studiofive.recipeapp.network;
 
+import android.content.Context;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -14,6 +16,13 @@ import static com.studiofive.recipeapp.Constants.EDAMAM_BASE_URL;
 public class EdamamClient {
 
     private static Retrofit retrofit = null;
+
+    private EdamamApi edamamApi = null;
+    private Context context;
+
+    public EdamamClient(Context context){
+        this.context = context;
+    }
 
     public static EdamamApi getClient(){
 

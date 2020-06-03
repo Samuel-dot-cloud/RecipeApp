@@ -1,10 +1,10 @@
 package com.studiofive.recipeapp.models;
 
-//import org.parceler.Parcel;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
-//@Parcel
+@Parcel
 public class Recipe {
     private String mLabel;
     private String mSource;
@@ -32,8 +32,6 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String source, String uri, String image, String url, String shareAs, double calories, double totalTime, ArrayList<String> ingredientLines) {
-    }
 
     public String getLabel(){
         return mLabel;

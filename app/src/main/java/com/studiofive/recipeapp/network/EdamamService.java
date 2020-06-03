@@ -1,5 +1,22 @@
 package com.studiofive.recipeapp.network;
 
+import com.studiofive.recipeapp.Constants;
+import com.studiofive.recipeapp.models.Recipe;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class EdamamService {
 
 //    public static void findRecipes(String recipe, Callback callback){
@@ -60,7 +77,7 @@ public class EdamamService {
 //            }
 //
 //
-//        } catch (IOException | JSONException e) {
+//        } catch ( JSONException | IOException e) {
 //            e.printStackTrace();
 //        }
 //

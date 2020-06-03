@@ -1,8 +1,10 @@
 package com.studiofive.recipeapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,12 +16,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 //import com.studiofive.recipeapp.adapters.RecipeListAdapter;
+import com.studiofive.recipeapp.adapters.RecipeListAdapter;
 import com.studiofive.recipeapp.models.Recipe;
+import com.studiofive.recipeapp.network.EdamamApi;
+import com.studiofive.recipeapp.network.EdamamClient;
+import com.studiofive.recipeapp.network.EdamamRecipesSearchResponse;
 import com.studiofive.recipeapp.network.EdamamService;
 
 import com.studiofive.recipeapp.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,9 +51,9 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     ProgressBar mProgressBar;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-//    private RecipeListAdapter mAdapter;
+    private RecipeListAdapter mAdapter;
 
-    public List<Recipe> recipes;
+    public ArrayList<Recipe> recipes;
 
 //    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
     private String[] base = new String[]{"Flour", "Plant", "Meat", "Meat", "Drink", "Plant", "Plant and meat", "Meat", "Flour", "Flour,plant and meat", "Meat", "Flour, plant and meat", "Egg", "Meat", "Flour", "Plant"};
@@ -84,8 +91,8 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 
         getRecipes(recipe);
 
-//        EdamamApi client = EdamamClient.getClient();
-//        retrofit2.Call<EdamamRecipesSearchResponse> call = client.getQ(recipe);
+        EdamamApi client = EdamamClient.getClient();
+        retrofit2.Call<EdamamRecipesSearchResponse> call = client.getQ(recipe);
 
 //        call.enqueue(new retrofit2.Callback<EdamamRecipesSearchResponse>() {
 //            @Override
@@ -94,10 +101,9 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 //
 //                if (response.isSuccessful()) {
 //                    recipes = response.body().getQ();
-//                    mAdapter = new RecipeListAdapter(RecipeActivity.this, recipes);
+//                    mAdapter = new RecipeListAdapter(RecipeListActivity.this, recipes);
 //                    mRecyclerView.setAdapter(mAdapter);
-//                    RecyclerView.LayoutManager layoutManager =
-//                            new LinearLayoutManager(RecipeActivity.this);
+//                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipeListActivity.this);
 //                    mRecyclerView.setLayoutManager(layoutManager);
 //                    mRecyclerView.setHasFixedSize(true);
 //
@@ -124,51 +130,52 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getRecipes(final String recipe) {
-        final EdamamService edamamService = new EdamamService();
-        edamamService.findRecipes(recipe, new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                recipes = edamamService.processResults(response);
-
-//                try {
-//                    String jsonData = response.body().string();
-//                    Log.v(TAG, jsonData);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
-                RecipeListActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String[] recipeNames = new String[recipes.size()];
-                        for (int i = 0; i < recipeNames.length; i++){
-                            recipeNames[i] = recipes.get(i).getLabel();
-                        }
-                        ArrayAdapter adapter = new ArrayAdapter(RecipeListActivity.this, android.R.layout.simple_list_item_1, recipeNames);
-                        mListView.setAdapter(adapter);
-                        for (Recipe recipe : recipes) {
-                            Log.d(TAG, "Label: " + recipe.getLabel());
-                            Log.d(TAG, "source: " + recipe.getSource());
-                            Log.d(TAG, "uri: " + recipe.getUri());
-                            Log.d(TAG, "image: " + recipe.getImage());
-                            Log.d(TAG, "url: " + recipe.getUrl());
-                            Log.d(TAG, "shareas: " +  recipe.getShareAs());
-                            Log.d(TAG, "ingredient: " + recipe.getIngredientLines().toString());
-                            Log.d(TAG, "calories: " + Double.toString(recipe.getCalories()));
-                            Log.d(TAG, "time: " + Double.toString(recipe.getTotalTime()));
-                        }
-                    }
-                });
-
-            }
-        });
+//
+//        final EdamamService edamamService = new EdamamService();
+//        edamamService.findRecipes(recipe, new Callback() {
+//
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                recipes = edamamService.processResults(response);
+//
+////                try {
+////                    String jsonData = response.body().string();
+////                    Log.v(TAG, jsonData);
+////                } catch (IOException e) {
+////                    e.printStackTrace();
+////                }
+//
+//                RecipeListActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        String[] recipeNames = new String[recipes.size()];
+//                        for (int i = 0; i < recipeNames.length; i++){
+//                            recipeNames[i] = recipes.get(i).getLabel();
+//                        }
+//                        ArrayAdapter adapter = new ArrayAdapter(RecipeListActivity.this, android.R.layout.simple_list_item_1, recipeNames);
+//                        mListView.setAdapter(adapter);
+//                        for (Recipe recipe : recipes) {
+//                            Log.d(TAG, "Label: " + recipe.getLabel());
+//                            Log.d(TAG, "source: " + recipe.getSource());
+//                            Log.d(TAG, "uri: " + recipe.getUri());
+//                            Log.d(TAG, "image: " + recipe.getImage());
+//                            Log.d(TAG, "url: " + recipe.getUrl());
+//                            Log.d(TAG, "shareas: " +  recipe.getShareAs());
+//                            Log.d(TAG, "ingredient: " + recipe.getIngredientLines().toString());
+//                            Log.d(TAG, "calories: " + Double.toString(recipe.getCalories()));
+//                            Log.d(TAG, "time: " + Double.toString(recipe.getTotalTime()));
+//                        }
+//                    }
+//                });
+//
+//            }
+//        });
     }
     private void showFailureMessage() {
         mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");

@@ -8,6 +8,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -24,7 +25,7 @@ public class EdamamClient {
         this.context = context;
     }
 
-    public static EdamamApi getClient(){
+    public static synchronized Retrofit getClient(){
 
         //intercepts each request and adds an HTTP authorization header
         if (retrofit == null){
@@ -38,14 +39,17 @@ public class EdamamClient {
                         }
                     };
 
+                  HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
+                          logger.level(HttpLoggingInterceptor.Level.BODY);
+                          okHttpClient.addInterceptor(interceptor).addInterceptor(logger);
             //appends base url to endpoints described
             retrofit = new Retrofit.Builder()
                     .baseUrl(EDAMAM_BASE_URL)
-//                    .client(okHttpClient)
+                    .client(okHttpClient.build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
 
-        return retrofit.create(EdamamApi.class);
+        return retrofit;
     }
 }

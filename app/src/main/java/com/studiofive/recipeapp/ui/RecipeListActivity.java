@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 //import com.studiofive.recipeapp.adapters.RecipeListAdapter;
 import com.studiofive.recipeapp.adapters.RecipeListAdapter;
+import com.studiofive.recipeapp.models.Hit;
 import com.studiofive.recipeapp.models.Recipe;
 import com.studiofive.recipeapp.network.EdamamApi;
 import com.studiofive.recipeapp.network.EdamamClient;
@@ -31,9 +32,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RecipeListActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = RecipeListActivity.class.getSimpleName();
@@ -53,7 +54,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     RecyclerView mRecyclerView;
     private RecipeListAdapter mAdapter;
 
-    public ArrayList<Recipe> recipes;
+    public ArrayList<Hit> recipes;
 
 //    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
     private String[] base = new String[]{"Flour", "Plant", "Meat", "Meat", "Drink", "Plant", "Plant and meat", "Meat", "Flour", "Flour,plant and meat", "Meat", "Flour, plant and meat", "Egg", "Meat", "Flour", "Plant"};
@@ -91,9 +92,33 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
 
         getRecipes(recipe);
 
-        EdamamApi client = EdamamClient.getClient();
-        retrofit2.Call<EdamamRecipesSearchResponse> call = client.getQ(recipe);
+        EdamamService.EdamamInstance().getQ
+                (recipe, "cea6bb57", "3e7b470f74e1d48bb3d122a8bfc500ed", "0", "100", "521-577", "alcohol-free")
+                .enqueue(new Callback<EdamamRecipesSearchResponse>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<EdamamRecipesSearchResponse> call, Response<EdamamRecipesSearchResponse> response) {
+                        hideProgressBar();
+//
+                if (response.isSuccessful()) {
+                    recipes = (ArrayList<Hit>) response.body().getHits();
+                    mAdapter = new RecipeListAdapter(RecipeListActivity.this, recipes);
+                    mRecyclerView.setAdapter(mAdapter);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipeListActivity.this);
+                    mRecyclerView.setLayoutManager(layoutManager);
+                    mRecyclerView.setHasFixedSize(true);
 
+                    showRestaurants();
+                } else {
+                    showUnsuccessfulMessage();
+                }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<EdamamRecipesSearchResponse> call, Throwable t) {
+
+                    }
+                });
 //        call.enqueue(new retrofit2.Callback<EdamamRecipesSearchResponse>() {
 //            @Override
 //            public void onResponse(retrofit2.Call<EdamamRecipesSearchResponse> call, retrofit2.Response<EdamamRecipesSearchResponse> response) {

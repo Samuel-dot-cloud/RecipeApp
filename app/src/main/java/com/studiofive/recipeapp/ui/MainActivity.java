@@ -17,9 +17,15 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.studiofive.recipeapp.R;
+import com.studiofive.recipeapp.network.EdamamClient;
+import com.studiofive.recipeapp.network.EdamamRecipesSearchResponse;
+import com.studiofive.recipeapp.network.EdamamService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //implementing a changing view interface
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         //add validation for search item
         awesomeValidation.addValidation(this, R.id.search_bar, RegexTemplate.NOT_EMPTY, R.string.invalid_search);
+
 
     }
 

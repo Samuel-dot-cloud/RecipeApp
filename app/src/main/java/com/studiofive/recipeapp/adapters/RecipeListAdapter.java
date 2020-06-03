@@ -14,19 +14,22 @@ import com.squareup.picasso.Picasso;
 import com.studiofive.recipeapp.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.studiofive.recipeapp.models.Hit;
 import com.studiofive.recipeapp.models.Recipe;
 
-public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
-    private String mRecipes;
+public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
+    private List mRecipes;
     private Context mContext;
 
-    public RecipeListAdapter(Context context, String recipes){
+    public RecipeListAdapter(Context context, ArrayList<Hit> recipes){
         mContext = context;
-        mRecipes = recipes;
+        mRecipes = Collections.singletonList(recipes);
     }
 
     @NonNull
@@ -39,7 +42,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void onBindViewHolder( RecipeListAdapter.RecipeViewHolder holder, int position) {
-        holder.bindRecipe(mRecipes.get(position));
+        holder.bindRecipe((Recipe) mRecipes.get(position));
     }
 
     @Override

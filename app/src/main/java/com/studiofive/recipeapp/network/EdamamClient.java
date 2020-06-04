@@ -18,14 +18,9 @@ public class EdamamClient {
 
     private static Retrofit retrofit = null;
 
-    private EdamamApi edamamApi = null;
-    private Context context;
 
-    public EdamamClient(Context context){
-        this.context = context;
-    }
 
-    public static synchronized Retrofit getClient(){
+    public static EdamamApi getClient(){
 
         //intercepts each request and adds an HTTP authorization header
         if (retrofit == null){
@@ -50,6 +45,6 @@ public class EdamamClient {
                     .build();
         }
 
-        return retrofit;
+        return retrofit.create(EdamamApi.class);
     }
 }

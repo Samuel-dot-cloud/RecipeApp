@@ -13,26 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.studiofive.recipeapp.R;
+import com.studiofive.recipeapp.models.Hit;
+import com.studiofive.recipeapp.models.Recipe;
+import com.studiofive.recipeapp.models.Recipes;
+import com.studiofive.recipeapp.ui.RecipeDetailsActivity;
 
-import java.util.ArrayList;
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import com.studiofive.recipeapp.models.Hit;
-import com.studiofive.recipeapp.models.Recipe;
-import com.studiofive.recipeapp.models.Recipes;
-import com.studiofive.recipeapp.ui.RecipeDetailsActivity;
-import com.studiofive.recipeapp.ui.RecipeListActivity;
-
-import org.parceler.Parcels;
-
-public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
+public class RecipesListAdapter  extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
     private List<Hit> mRecipes;
     private Context mContext;
 
-    public RecipeListAdapter(Context context, List<Hit> recipes){
+    public RecipesListAdapter(Context context, List<Hit> recipes){
         mContext = context;
         mRecipes = recipes;
     }
@@ -40,17 +37,17 @@ public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.R
 
 
 
-    @NonNull
-    @Override
-    public RecipeListAdapter.RecipeViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item, parent, false);
 
-        return new RecipeListAdapter.RecipeViewHolder(view);
+    @Override
+    public RecipesListAdapter.RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipes_list_item, parent, false);
+        RecipeViewHolder viewHolder = new RecipeViewHolder(view);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder( RecipeListAdapter.RecipeViewHolder holder, int position) {
-        Picasso.get().load(mRecipes.get(position).getRecipe().getImage());
+    public void onBindViewHolder( RecipesListAdapter.RecipeViewHolder holder, int position) {
+       holder.bindRecipe(mRecipes.get(position).getRecipe());
     }
 
     @Override
@@ -65,7 +62,7 @@ public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.R
         TextView mRecipeTextView;
         @BindView(R.id.calorieTextView)
         TextView mCalorieTextView;
-        @BindView(R.id.preparationTextView)
+        @BindView(R.id.totalTimeTextView)
         TextView mPreparationTextView;
         private Context mContext;
 
@@ -76,12 +73,12 @@ public class RecipeListAdapter  extends RecyclerView.Adapter<RecipeListAdapter.R
             itemView.setOnClickListener((View.OnClickListener) this);
         }
 
-//        public void bindRecipe(Recipe recipe){
-//            mCalorieTextView.setText("Total calories:" + recipe.getCalories() + "kcal");
-//            mPreparationTextView.setText("Preparation time:" + recipe.getTotalTime() + "hours");
-//            mRecipeTextView.setText(recipe.getLabel());
-//            Picasso.get().load(recipe.getImage()).into(mRecipeImageView);
-//        }
+        public void bindRecipe(Recipe recipe){
+            mCalorieTextView.setText("Total calories:" + recipe.getCalories() + "kcal");
+            mPreparationTextView.setText("Preparation time:" + recipe.getTotalTime() + "hours");
+            mRecipeTextView.setText(recipe.getLabel());
+            Picasso.get().load(recipe.getImage()).into(mRecipeImageView);
+        }
 
         @Override
         public void onClick(View v) {

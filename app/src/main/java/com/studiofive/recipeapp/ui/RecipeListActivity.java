@@ -52,12 +52,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     RecyclerView mRecyclerView;
     private RecipesListAdapter mAdapter;
 
-    public List<Hit> recipes;
-//    public List Recipes;
-
-//    private String[] foods = new String[]{"Flatbread", "Chips", "Fish", "Pork", "Coffee", "Rice", "Burgers", "Chicken", "Cake", "Hotdog", "Barbeque", "Pizza", "Omelet", "Sausage", "Croissant", "Guacamole"};
-//    private String[] base = new String[]{"Flour", "Plant", "Meat", "Meat", "Drink", "Plant", "Plant and meat", "Meat", "Flour", "Flour,plant and meat", "Meat", "Flour, plant and meat", "Egg", "Meat", "Flour", "Plant"};
-
+    public String recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,29 +60,26 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
 
-
         mFindAboutButton.setOnClickListener(this);
-
-
-
 
         Intent intent = getIntent();
         final String recipe = intent.getStringExtra("recipe");
+
         EdamamApi edamamApi = EdamamClient.getClient();
-Call<List<Hit>> call = edamamApi.getRecipe(recipe,"cea6bb57", "3e7b470f74e1d48bb3d122a8bfc500ed", "0", "100", "521-577", "alcohol-free");
+Call<EdamamRecipesSearchResponse> call = edamamApi.getRecipe(recipe,"cea6bb57", "3e7b470f74e1d48bb3d122a8bfc500ed", "0", "100", "521-577", "alcohol-free");
 
 
-                call.enqueue(new Callback<List<Hit>>() {
+                call.enqueue(new Callback<EdamamRecipesSearchResponse>() {
                                  @Override
-                                 public void onResponse(Call<List<Hit>> call, Response<List<Hit>> response) {
+                                 public void onResponse(Call<EdamamRecipesSearchResponse> call, Response<EdamamRecipesSearchResponse> response) {
                                      hideProgressBar();
                                      if (response.isSuccessful()){
-                                         recipes = response.body();
+                                         recipes = response.body().getQ();
                                          mAdapter = new RecipesListAdapter(RecipeListActivity.this, recipes);
-                mRecyclerView.setAdapter(mAdapter);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipeListActivity.this);
-                mRecyclerView.setLayoutManager(layoutManager);
-                mRecyclerView.setHasFixedSize(true);
+                                   mRecyclerView.setAdapter(mAdapter);
+                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipeListActivity.this);
+                                mRecyclerView.setLayoutManager(layoutManager);
+                               mRecyclerView.setHasFixedSize(true);
                 Log.d(TAG, "show");
                 showRecipes();
             } else {
@@ -96,7 +88,7 @@ Call<List<Hit>> call = edamamApi.getRecipe(recipe,"cea6bb57", "3e7b470f74e1d48bb
                                      }
 
                                  @Override
-                                 public void onFailure(Call<List<Hit>> call, Throwable t) {
+                                 public void onFailure(Call<EdamamRecipesSearchResponse> call, Throwable t) {
                                      hideProgressBar();
                                      showFailureMessage();
 

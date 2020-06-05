@@ -20,16 +20,17 @@ import com.studiofive.recipeapp.ui.RecipeDetailsActivity;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipesListAdapter  extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
-    private List<Hit> mRecipes;
+    private ArrayList<Hit> mRecipes;
     private Context mContext;
 
-    public RecipesListAdapter(Context context, List<Hit> recipes){
+    public RecipesListAdapter(Context context, ArrayList<Hit> recipes){
         mContext = context;
         mRecipes = recipes;
     }

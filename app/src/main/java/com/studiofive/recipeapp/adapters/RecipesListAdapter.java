@@ -17,6 +17,7 @@ import com.studiofive.recipeapp.models.Hit;
 import com.studiofive.recipeapp.models.Recipe;
 import com.studiofive.recipeapp.models.Recipes;
 import com.studiofive.recipeapp.ui.RecipeDetailsActivity;
+import com.studiofive.recipeapp.ui.RecipeListActivity;
 
 import org.parceler.Parcels;
 
@@ -27,15 +28,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipesListAdapter  extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
-    private ArrayList<Hit> mRecipes;
+    private List <Hit> mRecipes;
     private Context mContext;
 
-    public RecipesListAdapter(Context context, ArrayList<Hit> recipes){
+    public RecipesListAdapter(Context context, List<Hit> recipes){
         mContext = context;
         mRecipes = recipes;
     }
-
-
 
 
 

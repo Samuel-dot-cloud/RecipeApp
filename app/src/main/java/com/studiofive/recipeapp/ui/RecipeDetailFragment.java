@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.studiofive.recipeapp.R;
 
+import com.studiofive.recipeapp.models.Ingredient;
 import com.studiofive.recipeapp.models.Recipe;
 import com.studiofive.recipeapp.models.Recipes;
 
@@ -101,9 +103,13 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
                 .centerCrop()
                 .into(mRecipeImageView);
 
-        List<String> categories = new ArrayList<>();
+        List<String> ingredients = new ArrayList<>();
+        for (Ingredient ingredient : mRecipe.getIngredients()) {
+            ingredient.getText();
+        }
 
         mRecipeTextView.setText(mRecipe.getLabel());
+        mIngredientTextView.setText(TextUtils.join(". ", ingredients));
         mCalorieTextView.setText(Double.toString(mRecipe.getCalories()) + "kcal");
         mShareTextView.setOnClickListener(this);
         mFullTextView.setOnClickListener(this);

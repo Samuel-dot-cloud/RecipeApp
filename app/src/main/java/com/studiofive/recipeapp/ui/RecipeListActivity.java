@@ -14,9 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.studiofive.recipeapp.adapters.RecipeListAdapter;
+
+import com.studiofive.recipeapp.Constants;
 import com.studiofive.recipeapp.adapters.RecipesListAdapter;
 import com.studiofive.recipeapp.models.Hit;
+import com.studiofive.recipeapp.models.Recipe;
 import com.studiofive.recipeapp.models.Recipes;
 import com.studiofive.recipeapp.network.EdamamApi;
 import com.studiofive.recipeapp.network.EdamamClient;
@@ -25,6 +27,7 @@ import com.studiofive.recipeapp.network.EdamamService;
 
 import com.studiofive.recipeapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,8 +43,6 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     Button mFindAboutButton;
     @BindView(R.id.displaySearch)
     TextView mDisplaySearch;
-//        @BindView(R.id.menuBar)
-//    BottomNavigationView mMenuBar;
     @BindView(R.id.listView)
     ListView mListView;
     @BindView(R.id.errorTextView)
@@ -52,7 +53,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     RecyclerView mRecyclerView;
     private RecipesListAdapter mAdapter;
 
-    public String recipes;
+    public List<Hit> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         final String recipe = intent.getStringExtra("recipe");
 
         EdamamApi edamamApi = EdamamClient.getClient();
-Call<EdamamRecipesSearchResponse> call = edamamApi.getRecipe(recipe,"cea6bb57", "3e7b470f74e1d48bb3d122a8bfc500ed", "0", "100", "521-577", "alcohol-free");
+retrofit2.Call<EdamamRecipesSearchResponse> call = edamamApi.getRecipe(recipe, Constants.EDAMAM_APP_ID, Constants.EDAMAM_APP_KEY, Constants.FROM, Constants.TO, Constants.CALORIES, Constants.HEALTH);
 
 
                 call.enqueue(new Callback<EdamamRecipesSearchResponse>() {
@@ -74,10 +75,10 @@ Call<EdamamRecipesSearchResponse> call = edamamApi.getRecipe(recipe,"cea6bb57", 
                                  public void onResponse(Call<EdamamRecipesSearchResponse> call, Response<EdamamRecipesSearchResponse> response) {
                                      hideProgressBar();
                                      if (response.isSuccessful()){
-                                         recipes = response.body().getQ();
-                                         mAdapter = new RecipesListAdapter(RecipeListActivity.this, recipes);
+                                         recipes = response.body().getHits();
+                                         mAdapter = new RecipesListAdapter(getApplicationContext(), recipes);
                                    mRecyclerView.setAdapter(mAdapter);
-                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecipeListActivity.this);
+                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                                 mRecyclerView.setLayoutManager(layoutManager);
                                mRecyclerView.setHasFixedSize(true);
                 Log.d(TAG, "show");
@@ -116,7 +117,6 @@ Call<EdamamRecipesSearchResponse> call = edamamApi.getRecipe(recipe,"cea6bb57", 
     }
 
     private void showRecipes() {
-        Toast.makeText(RecipeListActivity.this, "Function works", Toast.LENGTH_SHORT).show();
         mRecyclerView.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.VISIBLE);
         mDisplaySearch.setVisibility(View.VISIBLE);

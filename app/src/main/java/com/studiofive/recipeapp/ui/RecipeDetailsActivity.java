@@ -12,6 +12,7 @@ import com.studiofive.recipeapp.models.Recipe;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

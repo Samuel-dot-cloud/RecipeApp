@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //on success
             Toast.makeText(MainActivity.this, "Submission successful!!!", Toast.LENGTH_SHORT).show();
         } else{
-            Toast.makeText(MainActivity.this, "Invalid input!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Seems you're feeling lucky today!!", Toast.LENGTH_LONG).show();
         }
         if (v == mFindRecipesButton) {//switching to recipes when button is pressed
             String recipe = mSearchBar.getText().toString();

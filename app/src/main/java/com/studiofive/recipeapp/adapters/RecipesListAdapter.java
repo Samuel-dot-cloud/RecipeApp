@@ -8,30 +8,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.studiofive.recipeapp.R;
-import com.studiofive.recipeapp.models.Hit;
 import com.studiofive.recipeapp.models.Recipe;
-import com.studiofive.recipeapp.models.Recipes;
 import com.studiofive.recipeapp.ui.RecipeDetailsActivity;
-import com.studiofive.recipeapp.ui.RecipeListActivity;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipesListAdapter  extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
-    private List <Hit> mRecipes;
+    private ArrayList <Recipe> mRecipes;
     private Context mContext;
 
-    public RecipesListAdapter(Context context, List<Hit> recipes){
+    public RecipesListAdapter(Context context, ArrayList<Recipe> recipes){
         mContext = context;
         mRecipes = recipes;
     }
@@ -47,7 +42,7 @@ public class RecipesListAdapter  extends RecyclerView.Adapter<RecipesListAdapter
 
     @Override
     public void onBindViewHolder( RecipesListAdapter.RecipeViewHolder holder, int position) {
-       holder.bindRecipe(mRecipes.get(position).getRecipe());
+        holder.bindRecipe(mRecipes.get(position));
     }
 
     @Override
@@ -70,12 +65,12 @@ public class RecipesListAdapter  extends RecyclerView.Adapter<RecipesListAdapter
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
-            itemView.setOnClickListener((View.OnClickListener) this);
+            itemView.setOnClickListener(this);
         }
 
         public void bindRecipe(Recipe recipe){
-            mCalorieTextView.setText("Total calories:" + recipe.getCalories() + "kcal");
-            mPreparationTextView.setText("Preparation time:" + recipe.getTotalTime() + "hours");
+            mCalorieTextView.setText("Total calories:" + recipe.getCalories() + " kcal");
+            mPreparationTextView.setText("Preparation time:" + recipe.getTotalTime() + " minutes");
             mRecipeTextView.setText(recipe.getLabel());
             Picasso.get().load(recipe.getImage()).into(mRecipeImageView);
         }

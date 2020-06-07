@@ -32,7 +32,7 @@ The project is a Java Android-platform based recipe application whereby one is a
 - [Okhttp-signpost](https://github.com/pakerfeldt/okhttp-signpost) - A signpost extension for signing OkHttp requests.
 
 ### KNOWN BUGS.:warning:
-- A small problem parsing information received from the API.
+-----------------------------------
 
 ### CONTACT INFORMATION.
 For more information, feel free to contact me through the email address: samdot@gmail.com

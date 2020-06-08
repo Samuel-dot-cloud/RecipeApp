@@ -53,9 +53,9 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     private RecipesListAdapter mAdapter;
 
     public ArrayList<Recipe> recipes;
-        private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
-    private String mRecentSearch;
+//        private SharedPreferences mSharedPreferences;
+//    private SharedPreferences.Editor mEditor;
+//    private String mRecentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +69,11 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         final String recipe = intent.getStringExtra("recipe");
         getRecipes(recipe);
 
-                mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mRecentSearch = mSharedPreferences.getString(Constants.PREFERENCES_SEARCH_KEY, null);
-        if (mRecentSearch != null) {
-            getRecipes(mRecentSearch);
-        }
+//                mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mRecentSearch = mSharedPreferences.getString(Constants.PREFERENCES_SEARCH_KEY, null);
+//        if (mRecentSearch != null) {
+//            getRecipes(mRecentSearch);
+//        }
     }
 
     private void getRecipes(String recipe){
@@ -107,38 +107,38 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search, menu);
-        ButterKnife.bind(this);
-
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mEditor = mSharedPreferences.edit();
-
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                addToSharedPreferences(query);
-                getRecipes(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_search, menu);
+//        ButterKnife.bind(this);
+//
+//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mEditor = mSharedPreferences.edit();
+//
+//        MenuItem menuItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                addToSharedPreferences(query);
+//                getRecipes(query);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -168,10 +168,10 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         mProgressBar.setVisibility(View.GONE);
     }
 
-
-    private void addToSharedPreferences(String recipe) {
-        mEditor.putString(Constants.PREFERENCES_SEARCH_KEY, recipe).apply();
-    }
+//
+//    private void addToSharedPreferences(String recipe) {
+//        mEditor.putString(Constants.PREFERENCES_SEARCH_KEY, recipe).apply();
+//    }
 
 
 }

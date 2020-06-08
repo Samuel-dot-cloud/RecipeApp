@@ -1,11 +1,13 @@
 package com.studiofive.recipeapp.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +18,11 @@ import android.widget.VideoView;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.studiofive.recipeapp.Constants;
 import com.studiofive.recipeapp.R;
 import com.studiofive.recipeapp.network.EdamamClient;
@@ -55,7 +60,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSearchedRecipeReference = FirebaseDatabase
                 .getInstance()
                 .getReference()
-                .child(Constants.FIREBASE_CHILD_SEARCHED_RECIPE);
+                .child(Constants.FIREBASE_CHILD_SEARCHED_RECIPE);//pinpoints recipe node
+
+        mSearchedRecipeReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                    String recipe = recipeSnapshot.getValue().toString();
+                    Log.d("Recipes updated", "recipe: " + recipe); //log
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

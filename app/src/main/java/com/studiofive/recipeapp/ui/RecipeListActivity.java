@@ -45,6 +45,8 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     private RecipesListAdapter mAdapter;
 
     public ArrayList<Recipe> recipes;
+    //    private SharedPreferences mSharedPreferences;
+//    private String mRecentAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,14 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         final String recipe = intent.getStringExtra("recipe");
         getRecipes(recipe);
 
-
+        //        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+//
+//        if (mRecentAddress != null) {
+//            getRestaurants(mRecentAddress);
+//        }
     }
+
     private void getRecipes(String recipe){
         final EdamamService edamamService = new EdamamService();
         edamamService.findRecipes(recipe, new Callback() {

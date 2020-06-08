@@ -16,6 +16,9 @@ import android.widget.VideoView;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.studiofive.recipeapp.Constants;
 import com.studiofive.recipeapp.R;
 import com.studiofive.recipeapp.network.EdamamClient;
 import com.studiofive.recipeapp.network.EdamamRecipesSearchResponse;
@@ -41,11 +44,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private AwesomeValidation awesomeValidation;
 
+    //    private SharedPreferences mSharedPreferences;
+//    private SharedPreferences.Editor mEditor;
 
+    private DatabaseReference mSearchedRecipeReference;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSearchedRecipeReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SEARCHED_RECIPE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -76,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //add validation for search item
         awesomeValidation.addValidation(this, R.id.search_bar, RegexTemplate.NOT_EMPTY, R.string.invalid_search);
 
+//       mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mEditor = mSharedPreferences.edit();
 
     }
 
@@ -90,8 +102,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else{
             Toast.makeText(MainActivity.this, "Seems you're feeling lucky today!!", Toast.LENGTH_LONG).show();
         }
-        if (v == mFindRecipesButton) {//switching to recipes when button is pressed
+        if (v == mFindRecipesButton) {
+            //switching to recipes when button is pressed
             String recipe = mSearchBar.getText().toString();
+
+            saveRecipeToFirebase(recipe);
+
+//            if(!(location).equals("")) {
+//                addToSharedPreferences(location);
+//            }
             Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
             intent.putExtra("recipe", recipe);
             startActivity(intent);
@@ -116,5 +135,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mVideoBackground.stopPlayback();
         super.onDestroy();
     }
+
+    public void saveRecipeToFirebase(String recipe) {
+        mSearchedRecipeReference.push().setValue(recipe);
+    }
+
+//    private void addToSharedPreferences(String recipe) {
+//        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, recipe).apply();
+//    }
+
 
 }

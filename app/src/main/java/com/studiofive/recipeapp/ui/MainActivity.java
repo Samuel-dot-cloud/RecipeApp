@@ -1,11 +1,16 @@
 package com.studiofive.recipeapp.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +21,14 @@ import android.widget.VideoView;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.studiofive.recipeapp.Constants;
 import com.studiofive.recipeapp.R;
 import com.studiofive.recipeapp.network.EdamamClient;
 import com.studiofive.recipeapp.network.EdamamRecipesSearchResponse;
@@ -38,19 +51,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText mSearchBar;
     @BindView(R.id.videoBackground)
     VideoView mVideoBackground;
+    @BindView(R.id.savedRecipesButton)
+    Button mSavedRecipesButton;
+
 
     private AwesomeValidation awesomeValidation;
 
+
+    private DatabaseReference mSearchedRecipeReference;
+    private ValueEventListener mSearchedRecipeReferenceListener;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSearchedRecipeReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SEARCHED_RECIPE);//pinpoints recipe node
+
+        mSearchedRecipeReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                    String recipe = recipeSnapshot.getValue().toString();
+                    Log.d("Recipes updated", "recipe: " + recipe); //log
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //binding views
         ButterKnife.bind(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    getSupportActionBar().setTitle("Welcome, " + user.getDisplayName() + "!");
+                } else {
+
+                }
+            }
+        };
 
 
 
@@ -77,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         awesomeValidation.addValidation(this, R.id.search_bar, RegexTemplate.NOT_EMPTY, R.string.invalid_search);
 
 
+        mSavedRecipesButton.setOnClickListener(this);
+
     }
 
 
@@ -90,12 +145,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else{
             Toast.makeText(MainActivity.this, "Seems you're feeling lucky today!!", Toast.LENGTH_LONG).show();
         }
-        if (v == mFindRecipesButton) {//switching to recipes when button is pressed
+        if (v == mFindRecipesButton) {
+            //switching to recipes when button is pressed
             String recipe = mSearchBar.getText().toString();
+
+            saveRecipeToFirebase(recipe);
+
+
             Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
             intent.putExtra("recipe", recipe);
             startActivity(intent);
         }
+
+        if (v == mSavedRecipesButton) {
+            Intent intent = new Intent(MainActivity.this, SavedRecipeListActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     //Override functions to enable optimum video play
@@ -115,6 +204,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy(){
         mVideoBackground.stopPlayback();
         super.onDestroy();
+        mSearchedRecipeReference.removeEventListener(mSearchedRecipeReferenceListener);
     }
 
+    public void saveRecipeToFirebase(String recipe) {
+        mSearchedRecipeReference.push().setValue(recipe);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+
+    }
 }

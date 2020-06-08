@@ -13,8 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.studiofive.recipeapp.Constants;
 import com.studiofive.recipeapp.R;
 
 import com.studiofive.recipeapp.models.Ingredient;
@@ -111,9 +115,11 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mRecipeTextView.setText(mRecipe.getLabel());
         mIngredientTextView.setText(TextUtils.join(". ", ingredients));
         mCalorieTextView.setText(Double.toString(mRecipe.getCalories()) + "kcal");
+
         mShareTextView.setOnClickListener(this);
         mFullTextView.setOnClickListener(this);
         mEdamamTextView.setOnClickListener(this);
+        mSaveRecipeButton.setOnClickListener(this);
 
         return view;
     }
@@ -133,6 +139,14 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         if (v == mShareTextView){
             Intent shareIntent = new Intent(Intent.ACTION_SEND, Uri.parse(mRecipe.getShareAs()));
             startActivity(shareIntent);
+        }
+
+        if (v == mSaveRecipeButton){
+            DatabaseReference recipeRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_RECIPES);
+            recipeRef.push().setValue(mRecipe);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -11,4 +11,5 @@ public class Constants {
     public static final String CALORIES = "591-722";
     public static final String HEALTH = "alcohol-free";
     public static final String FIREBASE_CHILD_SEARCHED_RECIPE = "searchedRecipe";
+    public static final String FIREBASE_CHILD_RECIPES = "recipes";
 }

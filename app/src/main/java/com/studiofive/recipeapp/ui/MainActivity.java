@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText mSearchBar;
     @BindView(R.id.videoBackground)
     VideoView mVideoBackground;
+    @BindView(R.id.savedRecipesButton)
+    Button mSavedRecipesButton;
+
 
     private AwesomeValidation awesomeValidation;
 
@@ -109,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //       mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 //        mEditor = mSharedPreferences.edit();
+        mSavedRecipesButton.setOnClickListener(this);
 
     }
 
@@ -134,6 +138,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
             Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
             intent.putExtra("recipe", recipe);
+            startActivity(intent);
+        }
+
+        if (v == mSavedRecipesButton) {
+            Intent intent = new Intent(MainActivity.this, SavedRecipeListActivity.class);
             startActivity(intent);
         }
     }

@@ -55,29 +55,32 @@
         android:id="@+id/search_bar"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:hint="Hungry for..."
-        android:textColor="@color/primaryText"
-        android:padding="10dp"
         android:background="@android:color/white"
+        android:hint="Hungry for..."
         android:inputType="text"
+        android:padding="10dp"
+        android:textColor="@color/primaryText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appTitle"
-        app:layout_constraintVertical_bias="0.812" />
+        app:layout_constraintVertical_bias="0.56" />
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/menuBar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="1.0"-->
-<!--        app:menu="@menu/bottom_navigation"-->
-<!--        android:background="@color/textIcons"/>-->
-
+    <Button
+        android:id="@+id/savedRecipesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:text="My Saved Recipes"
+        android:textColor="@color/colorDivider"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/findRecipesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.92" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

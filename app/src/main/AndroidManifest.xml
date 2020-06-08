@@ -11,19 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.studiofive.recipeapp.ui.RecipeDetailsActivity"></activity>
-        <activity android:name="com.studiofive.recipeapp.ui.AboutActivity">
+        <activity android:name=".ui.SavedRecipeListActivity"></activity>
+        <activity android:name=".ui.RecipeDetailsActivity" />
+        <activity android:name=".ui.AboutActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.studiofive.recipeapp.ui.MainActivity"></meta-data>
+                android:value="com.studiofive.recipeapp.ui.MainActivity" />
         </activity>
-        <activity android:name="com.studiofive.recipeapp.ui.RecipeListActivity">
+        <activity android:name=".ui.RecipeListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.studiofive.recipeapp.ui.MainActivity"></meta-data>
+                android:value="com.studiofive.recipeapp.ui.MainActivity" />
         </activity>
         <activity
-            android:name="com.studiofive.recipeapp.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

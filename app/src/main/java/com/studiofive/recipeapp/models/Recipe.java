@@ -3,73 +3,72 @@ package com.studiofive.recipeapp.models;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Parcel
 public class Recipe {
-    private String mLabel;
-    private String mSource;
-    private String mUri;
-    private String mImage;
-    private String mUrl;
-    private String mShareAs;
-    private ArrayList<String> mIngredientLines = new ArrayList<>();
+     String label;
+     String source;
+     String uri;
+     String image;
+     String url;
+     String shareAs;
+     List<String> ingredientLines = new ArrayList<>();
 //    private ArrayList<String> mHealthLabels = new ArrayList<>();
-    private double mCalories;
-    private double mTotalTime;
+     double calories;
+     double totalTime;
+
+
 
     public Recipe(String label, String source, String uri, String image, String url, String shareAs, ArrayList<String> ingredientLines, double calories, double totalTime){
-        this.mLabel = label;
-        this.mSource = source;
-        this.mUri = uri;
-        this.mImage = image;
-        this.mUrl = url;
-        this.mShareAs = shareAs;
-        this.mIngredientLines = ingredientLines;
-        this.mCalories = calories;
-        this.mTotalTime = totalTime;
+        this.label = label;
+        this.source = source;
+        this.uri = uri;
+        this.image = image;
+        this.url = url;
+        this.shareAs = shareAs;
+        this.ingredientLines = ingredientLines;
+        this.calories = calories;
+        this.totalTime = totalTime;
     }
 
     public Recipe() {
     }
 
-
-    public String getLabel(){
-        return mLabel;
+    public String getLabel() {
+        return label;
     }
 
-    public String getSource(){
-        return mSource;
+    public String getSource() {
+        return source;
     }
 
-    public String getUri(){
-        return mUri;
+    public String getUri() {
+        return uri;
     }
 
-    public String getImage(){
-        return mImage;
+    public String getImage() {
+        return image;
     }
 
-    public String getUrl(){
-        return mUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public String getShareAs(){
-        return mShareAs;
+    public String getShareAs() {
+        return shareAs;
     }
 
-    public ArrayList<String> getIngredientLines(){
-        return mIngredientLines;
+    public List<String> getIngredientLines() {
+        return ingredientLines;
     }
 
-//    public ArrayList<String> getHealthLabels() {
-//        return mHealthLabels;
-//    }
-
-    public double getCalories(){
-        return mCalories;
+    public double getCalories() {
+        return calories;
     }
 
-    public double getTotalTime(){
-        return mTotalTime;
+    public double getTotalTime() {
+        return totalTime;
     }
+
 }

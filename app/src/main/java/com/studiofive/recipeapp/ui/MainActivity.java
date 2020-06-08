@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    private SharedPreferences.Editor mEditor;
 
     private DatabaseReference mSearchedRecipeReference;
+    private ValueEventListener mSearchedRecipeReferenceListener;
 
 
     @Override
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy(){
         mVideoBackground.stopPlayback();
         super.onDestroy();
+        mSearchedRecipeReference.removeEventListener(mSearchedRecipeReferenceListener);
     }
 
     public void saveRecipeToFirebase(String recipe) {

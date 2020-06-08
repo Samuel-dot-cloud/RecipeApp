@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private AwesomeValidation awesomeValidation;
 
-    //    private SharedPreferences mSharedPreferences;
-//    private SharedPreferences.Editor mEditor;
 
     private DatabaseReference mSearchedRecipeReference;
     private ValueEventListener mSearchedRecipeReferenceListener;
@@ -110,8 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //add validation for search item
         awesomeValidation.addValidation(this, R.id.search_bar, RegexTemplate.NOT_EMPTY, R.string.invalid_search);
 
-//       mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        mEditor = mSharedPreferences.edit();
+
         mSavedRecipesButton.setOnClickListener(this);
 
     }
@@ -133,9 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             saveRecipeToFirebase(recipe);
 
-//            if(!(location).equals("")) {
-//                addToSharedPreferences(location);
-//            }
+
             Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
             intent.putExtra("recipe", recipe);
             startActivity(intent);
@@ -171,9 +166,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSearchedRecipeReference.push().setValue(recipe);
     }
 
-//    private void addToSharedPreferences(String recipe) {
-//        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, recipe).apply();
-//    }
 
 
 }

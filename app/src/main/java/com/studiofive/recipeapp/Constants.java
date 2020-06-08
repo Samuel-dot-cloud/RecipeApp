@@ -12,4 +12,5 @@ public class Constants {
     public static final String HEALTH = "alcohol-free";
     public static final String FIREBASE_CHILD_SEARCHED_RECIPE = "searchedRecipe";
     public static final String FIREBASE_CHILD_RECIPES = "recipes";
+    public static final String PREFERENCES_SEARCH_KEY = "recipe";
 }

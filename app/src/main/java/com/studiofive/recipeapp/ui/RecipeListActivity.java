@@ -1,7 +1,12 @@
 package com.studiofive.recipeapp.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -9,9 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.studiofive.recipeapp.Constants;
 import com.studiofive.recipeapp.R;
 import com.studiofive.recipeapp.adapters.RecipesListAdapter;
 import com.studiofive.recipeapp.models.Recipe;
@@ -45,8 +53,9 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     private RecipesListAdapter mAdapter;
 
     public ArrayList<Recipe> recipes;
-    //    private SharedPreferences mSharedPreferences;
-//    private String mRecentAddress;
+        private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    private String mRecentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +69,11 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
         final String recipe = intent.getStringExtra("recipe");
         getRecipes(recipe);
 
-        //        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
-//
-//        if (mRecentAddress != null) {
-//            getRestaurants(mRecentAddress);
-//        }
+                mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mRecentSearch = mSharedPreferences.getString(Constants.PREFERENCES_SEARCH_KEY, null);
+        if (mRecentSearch != null) {
+            getRecipes(mRecentSearch);
+        }
     }
 
     private void getRecipes(String recipe){
@@ -100,6 +108,39 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        ButterKnife.bind(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                addToSharedPreferences(query);
+                getRecipes(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View v) {
         if (v == mFindAboutButton) {
             Intent intent = new Intent(RecipeListActivity.this, AboutActivity.class);
@@ -128,7 +169,9 @@ public class RecipeListActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-
+    private void addToSharedPreferences(String recipe) {
+        mEditor.putString(Constants.PREFERENCES_SEARCH_KEY, recipe).apply();
+    }
 
 
 }

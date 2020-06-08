@@ -17,8 +17,7 @@ public class Recipe {
 //    private ArrayList<String> mHealthLabels = new ArrayList<>();
      double calories;
      double totalTime;
-
-
+    private String pushId;
 
     public Recipe(String label, String source, String uri, String image, String url, String shareAs, ArrayList<String> ingredientLines, double calories, double totalTime){
         this.label = label;
@@ -69,6 +68,14 @@ public class Recipe {
 
     public double getTotalTime() {
         return totalTime;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 
 }

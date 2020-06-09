@@ -8,7 +8,7 @@ My name is Samuel and i am currently a learning software programmer at Moringa S
 ## DESCRIPTION OF PROJECT.
 The project is a Java Android-platform based recipe application whereby one is able to look up recipes to various classes of food.
  One is able to type in a food search item, and once the search item is validated, the person is directed to a another page where a list of found recipes is displayed, courtesy of Edamam API and associated contributors.:medal_military::medal_military::trophy:
- <p float="left">
+ <p float="centre">
    <img src="pics/pic1.jpg" width="100" />
    <img src="pics/pic2.jpg" width="100" /> 
    <img src="pics/pic3.jpg" width="100" />

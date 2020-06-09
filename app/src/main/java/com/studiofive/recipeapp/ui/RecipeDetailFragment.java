@@ -53,8 +53,6 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     TextView mEdamamTextView;
     @BindView(R.id.recipeTextView)
     TextView mRecipeTextView;
-    @BindView(R.id.calorieTextView)
-    TextView mCalorieTextView;
     @BindView(R.id.ingredientTextView)
     TextView mIngredientTextView;
     @BindView(R.id.saveRecipeButton)
@@ -109,14 +107,10 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
                 .centerCrop()
                 .into(mRecipeImageView);
 
-        List<String> ingredients = new ArrayList<>();
-        for (String ingredient : mRecipe.getIngredientLines()) {
-            ingredient.toString();
-        }
 
         mRecipeTextView.setText(mRecipe.getLabel());
-        mIngredientTextView.setText(TextUtils.join(". ", ingredients));
-        mCalorieTextView.setText(Double.toString(mRecipe.getCalories()) + "kcal");
+        mIngredientTextView.setText(mRecipe.getIngredientLines().toString());
+
 
         mShareTextView.setOnClickListener(this);
         mFullTextView.setOnClickListener(this);

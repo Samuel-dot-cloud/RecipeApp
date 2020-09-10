@@ -1,8 +1,5 @@
 package com.studiofive.recipeapp.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -18,9 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,15 +31,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.studiofive.recipeapp.Constants;
 import com.studiofive.recipeapp.R;
-import com.studiofive.recipeapp.network.EdamamClient;
-import com.studiofive.recipeapp.network.EdamamRecipesSearchResponse;
-import com.studiofive.recipeapp.network.EdamamService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
+
 
 //implementing a changing view interface
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -56,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private AwesomeValidation awesomeValidation;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     private DatabaseReference mSearchedRecipeReference;
@@ -91,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //binding views
         ButterKnife.bind(this);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -132,8 +132,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mSavedRecipesButton.setOnClickListener(this);
 
-    }
 
+
+
+    }
 
 
     @Override
@@ -186,6 +188,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
         finish();
     }
+
+
 
     //Override functions to enable optimum video play
     @Override

@@ -9,7 +9,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.studiofive.recipeapp.ui.RecipeActivity;
+
+import com.studiofive.recipeapp.ui.RecipeListActivity;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -24,7 +25,7 @@ import static org.hamcrest.core.IsNot.not;
 @RunWith(AndroidJUnit4.class)
 public class RecipeActivityInstrumentationTest {
     @Rule
-    public ActivityTestRule<RecipeActivity> activityTestRule = new ActivityTestRule<>(RecipeActivity.class);
+    public ActivityTestRule<RecipeListActivity> activityTestRule = new ActivityTestRule<>(RecipeListActivity.class);
 
     @Test
     public void listItemClickDisplaysToastWithCorrectRecipe() {

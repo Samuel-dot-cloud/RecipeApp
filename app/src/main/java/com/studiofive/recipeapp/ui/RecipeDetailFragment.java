@@ -134,6 +134,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
 
         if (v == mShareTextView){
             Intent shareIntent = new Intent(Intent.ACTION_SEND, Uri.parse(mRecipe.getShareAs()));
+            shareIntent.setType("text/plain");
             startActivity(shareIntent);
         }
 
